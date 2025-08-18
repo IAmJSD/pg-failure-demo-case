@@ -6,9 +6,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "drizzle-kit": "drizzle-kit",
+    "publish": "astro build && wrangler deploy"
   },
   "dependencies": {
-    "astro": "^5.13.2"
+    "@astrojs/cloudflare": "^12.6.4",
+    "astro": "^5.13.2",
+    "drizzle-orm": "^0.44.4",
+    "pg": "^8.16.3",
+    "wrangler": "^4.31.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4"
   }
 }

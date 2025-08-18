@@ -1,0 +1,46 @@
+---
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Client } from "pg";
+import * as schema from "../../schema";
+
+export const prerender = false;
+
+const locals = Astro.locals;
+
+type CloudflareLocals = {
+    runtime: {
+        env: {
+            HYPERDRIVE_MAIN_DB: {
+                connectionString: string;
+            };
+        };
+    };
+};
+
+const client = new Client({
+    connectionString: (locals as CloudflareLocals).runtime.env.HYPERDRIVE_MAIN_DB.connectionString,
+});
+const drizzleClient = drizzle(client, { schema });
+
+const names = await drizzleClient.select({
+    name: schema.items.name,
+}).from(schema.items);
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Names</title>
+    </head>
+    <body>
+        <h1>Names</h1>
+        <ul>
+            {names.map((item) => (
+                <li>{item.name}</li>
+            ))}
+        </ul>
+    </body>
+</html>

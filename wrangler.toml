@@ -1,0 +1,14 @@
+name = "pg-failure-demo-case"
+hyperdrive = [
+    { binding = "HYPERDRIVE_MAIN_DB", id = "2ecff8dba186479997ab98032d7034d8" }
+]
+main = "./dist/_worker.js/index.js"
+compatibility_date = "2025-08-15"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[observability]
+enabled = true
