@@ -20,6 +20,7 @@ type CloudflareLocals = {
 const client = new Client({
     connectionString: (locals as CloudflareLocals).runtime.env.HYPERDRIVE_MAIN_DB.connectionString,
 });
+// await client.connect(); // This missing causes a infinite irrecoverable loop!
 const drizzleClient = drizzle(client, { schema });
 
 const names = await drizzleClient.select({
